@@ -16,3 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('dashboard');
 });
+
+Route::get('/create-group', function () {
+    return view('createGroup');
+});
+
+Route::get('/create-plan', function () {
+    return view('createPlan');
+});
+
+Route::get('/join-plan', function () {
+    return view('joinPlan');
+});
