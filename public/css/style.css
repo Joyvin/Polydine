@@ -14,6 +14,25 @@ body{
     cursor: pointer;
 }
 
+button {
+  border-radius: 10px ;
+  cursor: pointer;
+  display: inline-block;
+  background: #333;
+  color: white;
+  font-size: 18px;
+  border: 0;
+  padding: 0.5rem 1rem;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:hover {
+  transform: scale(0.98) ;
+}
+
 .hover-shadow-primary:hover, .shadow-primary{
     box-shadow: 0 4px 4px rgba(19,128,133,.12)!important;
 }

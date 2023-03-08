@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+<<<<<<< HEAD
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'root'])->name('dashboard');
@@ -26,3 +27,20 @@ Route::post('/vpassword', [App\Http\Controllers\AuthController::class, 'validate
 Route::post('/cregister', [App\Http\Controllers\AuthController::class, 'register'])->name('cregister');
 Route::get('authorized/google', [App\Http\Controllers\AuthController::class, 'redirectToGoogle'])->name('login-google');
 Route::get('authorized/google/callback', [App\Http\Controllers\AuthController::class, 'handleGoogleCallback']);
+=======
+Route::get('/', function () {
+    return view('dashboard');
+});
+
+Route::get('/create-group', function () {
+    return view('createGroup');
+});
+
+Route::get('/create-plan', function () {
+    return view('createPlan');
+});
+
+Route::get('/join-plan', function () {
+    return view('joinPlan');
+});
+>>>>>>> 1904707c4d8c430034ec336bd5e587dbcc65027c
