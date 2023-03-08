@@ -46,8 +46,10 @@
                                     <div class="d-flex justify-content-end p-0 pe-2">
                                         <div class="bg-primary p-0 p-2 text-white w-auto">10 Apr 2023</div>
                                     </div>
-                                    <h3 class="text-primary">Vacation Party</h3>
-                                    <div class="">Lunch</div>
+                                    <div class="p-1">
+                                        <h3 class="text-primary">Vacation Party</h3>
+                                        <div class="p-0">Lunch</div>
+                                    </div>
                                 </div>
                             </li>
                         </ul>
