@@ -15,10 +15,12 @@
                             <div class="">Birthday Party</div>
                         </div>
                         <div class="d-flex">
+                            
                             <button class="align-items-center bg-white border-white btn d-flex justify-content-center me-2 myshadow w-100">
-                                <i class="mdi mdi-party-popper me-2"></i>Make A Plan
+                                <a :href="createPlan"><i class="mdi mdi-party-popper me-2"></i>Make A Plan</a>
                             </button>
-                            <button class="align-items-center bg-white border-white btn d-flex justify-content-center myshadow w-100">
+                            
+                            <button @click="joinPlanModal()" class="align-items-center bg-white border-white btn d-flex justify-content-center myshadow w-100">
                                 <i class="mdi mdi-18px mdi-account-group-outline me-2"></i>Join A Plan
                             </button>
                         </div>
@@ -80,14 +82,43 @@ export default {
                 start: '2023-03-22', // a property!
                 end: '2023-03-22' // a property! ** see important note below about 'end' **
                 }
-            ]
+            ],
+
+            createPlan: route('create.plan'),
+            token: getToken(),
         }
     },
 
+    props:['user'],
+
     methods:{
-        // showEvent(info){
-        //     var res = Swal.fire({title: 'Clicked on: ' + info.dateStr,})
-        // }
+        async joinPlanModal(){
+            const { value: val } = await Swal.fire({
+                customClass : {
+                    title: 'swal2-title'
+                },
+                title: 'Join A Plan',
+                input: 'text',
+                inputPlaceholder: 'Plan Code',
+                confirmButtonText: 'Join',
+                confirmButtonColor: '#138185',
+                inputValidator: (value) => {
+                    if (!value) {
+                        return 'Invalid code!'
+                    }
+                    else{
+                        this.joinPlan(value)
+                    }
+                }
+            })
+        },
+
+        async joinPlan(code){
+            var form = {_token: this.token, code: code, user:this.user.name}
+            console.log(form)
+            var res = await axios.post(route('join.plan'), form).catch((e)=>{return e.response});
+            console.log(res)
+        }
     },
 
     mounted(){
@@ -120,7 +151,7 @@ export default {
 
                 var num = info.dateStr.split('-')
 
-                var date = num[2] + ' '+ months[parseInt(num[1])] +' ' + num[0]
+                var date = num[2] + ' '+ months[parseInt(num[1]) - 1] +' ' + num[0]
 
                 Swal.fire({
                     title: date,
@@ -145,6 +176,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
 
 </style>

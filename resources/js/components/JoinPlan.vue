@@ -1,88 +1,104 @@
 <template>
-  <div class="container mx-5">
-  <div class="card rounded-3 myshadow w-100">
-    <div class="card-body p-0 justify-content-between d-flex w-100">
-      <div class="align-items-center d-flex w-100">
-        <iframe
-          src="https://my.spline.design/untitled-b86ccdc634a12d08481df0c671b5ba7d/"
-          frameborder="0"
-          width="100%"
-          height="400px"
-        ></iframe>
-      </div>
-      <div class="col-7 rounded-3 bg-primary text-white">
-        <br />
-        <h1 class="text-white px-4">Create a Plan</h1>
-        <form action="submit" method="POST">
-          <div class="mb-3 px-5 row">
-            <label for="InputGroupName" class="form-label">Plan Name</label>
-            <input
-              type="text"
-              class="form-control"
-              id="InputGroupName"
-              placeholder="Plan Name"
-            />
-          </div>
-          <div class="mb-3 px-5 row">
-            <label for="exampleInputPassword1" class="form-label"
-              >Plan Description</label>
-            <input
-              type="text"
-              class="form-control"
-              id="exampleInputPassword1"
-              placeholder="Plan for"
-            />
-          </div>
+  <div class="container">
+    <div class="card rounded-3 myshadow w-100">
+      <div class="card-body p-0 justify-content-between d-flex w-100">
+        <div class="align-items-center d-flex w-100">
+          <iframe
+            :class="page ? 'p-4' : ''"
+            src="https://my.spline.design/untitled-b86ccdc634a12d08481df0c671b5ba7d/"
+            frameborder="0"
+            width="100%"
+            height="335px"
+          ></iframe>
+        </div>
+        <div class="col-7 rounded-3 bg-primary text-white">
           <br />
-          <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button bg-body" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Specifications
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                        data-bs-parent="#accordionExample">
-                        <div class="accordion-body">
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Any Fixed Date</label>
-                                <input type="date" class="form-control" id="exampleInputPassword1"
-                                    placeholder="Enter a Date">
-                            </div>
-                            <div class="mycol">
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Any Fixed Time</label>
-                                    <input type="time" class="form-control" id="exampleInputPassword1">
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Any Fixed Budget</label>
-                                <input type="number" class="form-control" id="exampleInputPassword1">
-                            </div>
-                        </div>
-                    </div>
-                    </div>
-                  </div>
-                </div>
+          <h1 :class="!page ? 'mb-3' : ''" class="text-white px-4">Join a Plan</h1>
+          <div>
+            <div v-if="!page" class="mb-3 px-4">
+                Enter availiable days
             </div>
-          <div class="px-4 p-3">
-            <button type="submit" class="button">Submit</button>
+            <div v-if="!page" class="px-4 mb-3">
+              <button @click="page = true" class="button">Next</button>
+            </div>
+            <div v-if="!page" class="">
+              <div class="bg-white mx-auto me-4 ms-4 mb-4 myshadow p-4 rounded-3" id="calendar"></div>
+            </div>
+            <div v-else class="">
+              <div class="px-4">
+                <label for="InputGroupName" class="form-label"
+                  >Enter your preferred budget</label
+                >
+                <input v-model="budget"
+                  type="number"
+                  class="form-control"
+                  id="InputGroupName"
+                  placeholder="Enter a budget you like "
+                />
+              </div>
+            <br />
+            </div>
+            <input id="sDate" type="text" v-model='sDate' class="d-none"><input id="eDate" type="text" v-model='eDate' class="d-none">
+            <div v-if="page" class="px-4 mb-3">
+              <button @click="giveOpinion" class="button">Submit</button>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
+import { Calendar } from "@fullcalendar/core";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 export default {
+  name: "JoinPlan",
 
-}
+  props:['plan'],
+
+  data() {
+    return {
+      dates: "",
+      page: false,
+      budget: "",
+      location: "",
+      token: getToken(),
+      sDate: '',
+      eDate: ''
+    };
+  },
+  methods: {
+    async giveOpinion(){
+      var form = {_token: this.token, budget: parseInt(this.budget), code: this.plan.code}
+      var res = await axios.post(route("give.opinion"), form).then((e) => {return e.response;});
+      window.location.replace(route('plan'))
+    }
+  },
+
+  mounted() {
+    var calendarEl = document.getElementById("calendar");
+    var calendar = new Calendar(calendarEl, {
+      plugins: [dayGridPlugin, interactionPlugin],
+      initialView: "dayGridMonth",
+      selectable: true,
+      headerToolbar: {
+        start: "today",
+        center: "title",
+        end: "prev,next",
+      },
+      select: function(start, end, jsEvent, view) {
+        console.log(start.startStr, start.endStr)
+         $("#sDate").val(start.startStr);
+         $("#eDate").val(start.endStr)
+      }
+      // contentHeight: "auto",
+    });
+    calendar.render();
+  },
+};
 </script>
 
 <style>
-
 </style>

@@ -1,5 +1,6 @@
 <script src="{{ URL::asset('js/jquery.min.js')}}"></script>
 <script src="{{ URL::asset('js/sweetalert2.min.js')}}"></script>
+<script src="{{ URL::asset('js/toastr.min.js')}}"></script>
 <script>
 
     function assetPath(path){

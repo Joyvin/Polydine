@@ -11,11 +11,9 @@
             <div class="">
                 <div class="navbar-collapse collapse" id="navcol-1" style="">
                     <ul class="navbar-nav mx-auto pe-5">
-                        <li class="nav-item me-3"><a :class="scroll != 0 ? 'text-white' : ''" class="nav-link active" href="index.html">Home</a></li>
-                        <li class="nav-item me-3"><a :class="scroll != 0 ? 'text-white' : ''" class="nav-link" href="projects.html">Plans</a></li>
-                        <li class="nav-item me-3"><a :class="scroll != 0 ? 'text-white' : ''" class="nav-link" href="services.html">Groups</a></li>
-                        <li class="nav-item me-3"><a :class="scroll != 0 ? 'text-white' : ''" class="nav-link" href="pricing.html">Chat</a></li>
-                        <li class="nav-item me-3"><a :class="scroll != 0 ? 'text-white' : ''" class="nav-link" href="contacts.html">Memories</a></li>
+                        <li class="nav-item me-3"><a :class="scroll != 0 ? 'text-white' : ''" class="nav-link active" :href="home">Home</a></li>
+                        <li class="nav-item me-3"><a :class="scroll != 0 ? 'text-white' : ''" class="nav-link" :href="plans">Plans</a></li>
+                        <li class="nav-item me-3"><a :class="scroll != 0 ? 'text-white' : ''" class="nav-link" :href="groups">Groups</a></li>
                     </ul>
                 </div>
             </div>
@@ -40,6 +38,9 @@ export default {
         return{
             logoImgLight: assetPath('img/logo-lg-light.png'),
             logoImgDark: assetPath('img/logo-lg-dark.png'),
+            plans: route('plan'),
+            groups: route('group'),
+            home: route('dashboard'),
             userPic: assetPath('img/avatar-2.jpg'),
             scroll: 0
         }

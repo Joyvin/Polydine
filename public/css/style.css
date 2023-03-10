@@ -102,3 +102,18 @@ button:hover {
   .swal2-actions{
     margin: 0
   }
+
+  .swal2-title{
+    color: #138185 !important;
+}
+
+.convo:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-right: 10px solid #00bfb6;
+  border-left: 10px solid transparent;
+  border-top: 10px solid #00bfb6;
+  border-bottom: 10px solid transparent;
+}

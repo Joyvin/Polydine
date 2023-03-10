@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('page')
-    <dashboard :user="{{Auth::user()}}"/>
+    <yourplans/>
 @endsection

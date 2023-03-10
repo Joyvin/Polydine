@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('page')
-    <joinplan/>
+    <joinplan :plan="{{$plan}}"/>
 @endsection

@@ -79,7 +79,7 @@ class AuthController extends Controller
       
                 Auth::login($newUser);
       
-                return redirect()->route('home');
+                return redirect()->route('dashboard');
             }
       
         } catch (Exception $e) {
