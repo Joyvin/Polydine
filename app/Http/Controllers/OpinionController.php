@@ -62,7 +62,7 @@ class OpinionController extends Controller
             }
         }
 
-        return(json_encode($a));
+        return($a);
 
     }
 }

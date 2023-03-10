@@ -12,6 +12,7 @@ import CreatePlan from './components/CreatePlan.vue'
 import JoinPlan from './components/JoinPlan.vue'
 import Group from './components/Group.vue'
 import YourPlans from './components/YourPlans.vue'
+import Home from './components/Home.vue'
 
 app
 .component('polyheader', Polyheader)
@@ -23,5 +24,6 @@ app
 .component('joinplan', JoinPlan)
 .component('group', Group)
 .component('yourplans', YourPlans)
+.component('home', Home)
 
 app.mount("#app")
